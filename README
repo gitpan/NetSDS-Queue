@@ -1,0 +1,59 @@
+NAME
+    NetSDS::Queue - simple API to MemcacheQ powered queue
+
+SYNOPSIS
+            use NetSDS::Queue;
+            use Data::Dumper;
+
+            my $q = NetSDS::Queue->new( server => '10.0.0.5:18181' );
+
+            # Push messages to queue
+            $q->push('myq', { id => 1, text => 'one'});
+            $q->push('myq', { id => 2, text => 'two'});
+            $q->push('myq', { id => 3, text => 'three'});
+
+            # Fetch messages from queue
+            while ( my $data = $q->pull('myq') ) {
+                    print Dumper($data);
+            }
+
+DESCRIPTION
+    "NetSDS::Queue" module provides simple API to NetSDS queue.
+
+    Low level messaging is based on fast and reliable MemcacheQ server. It
+    use BerkeleyDB for persistance and Memchache protocol over TCP or Unix
+    sockets.
+
+    Every message is converted to JSON and then stored as Base64 string.
+
+CLASS API
+    new(%params) - class constructor
+        The following parameters accepted:
+
+        * server - address to MemcacheQ queue server (host:port)
+
+                my $queue = NetSDS::Queue->new(server => '192.168.0.1:12345');
+
+    push($queue, $data) - push message to queue
+                $queue->push('msgq', $my_data);
+
+    pull($queue) - fetch message from queue
+                my $data = $queue->pull('msgq');
+
+EXAMPLES
+    See files in "samples" catalog.
+
+BUGS
+    Unknown yet
+
+SEE ALSO
+    http://memcachedb.org/memcacheq/ - MemcacheQ server
+    http://openhack.ru/Cache-Memcached-Fast - Perl XS API to Memcached
+    servers
+
+TODO
+    None
+
+AUTHOR
+    Michael Bochkaryov <misha@rattler.kiev.ua>
+
