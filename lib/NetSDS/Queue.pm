@@ -56,7 +56,7 @@ use JSON;
 
 use base qw(NetSDS::Class::Abstract);
 
-use version; our $VERSION = "0.01";
+use version; our $VERSION = "0.030";
 our @EXPORT_OK = qw();
 
 #===============================================================================
@@ -73,6 +73,8 @@ The following parameters accepted:
 * server - address to MemcacheQ queue server (host:port)
 
 	my $queue = NetSDS::Queue->new(server => '192.168.0.1:12345');
+
+Default server address is 127.0.0.1:22201
 
 =cut
 
@@ -100,7 +102,11 @@ sub new {
 	# Create accessors
 	$this->mk_accessors('handler');
 
-	return $this;
+	if ( $this->handler ) {
+		return $this;
+	} else {
+		return undef;
+	}
 
 } ## end sub new
 
@@ -117,11 +123,10 @@ sub new {
 sub push {
 
 	my ( $this, $queue, $data ) = @_;
-	
-	return $this->handler->set($queue, _encode($data));
+
+	return $this->handler->set( $queue, _encode($data) );
 
 }
-
 
 #***********************************************************************
 
@@ -136,22 +141,26 @@ sub push {
 sub pull {
 
 	my ( $this, $queue ) = @_;
-	
-	return _decode($this->handler->get($queue));
+
+	return _decode( $this->handler->get($queue) );
 
 }
-
 
 sub _encode {
 
 	my ($struct) = @_;
-	return conv_str_base64(encode_json($struct));
+	return conv_str_base64( encode_json($struct) );
 }
 
 sub _decode {
 
 	my ($string) = @_;
-	return decode_json(conv_base64_str($string));
+
+	if ($string) {
+		return decode_json( conv_base64_str($string) );
+	} else {
+		return undef;
+	}
 }
 
 1;

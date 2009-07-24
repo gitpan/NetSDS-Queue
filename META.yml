@@ -1,6 +1,6 @@
 ---
 name: NetSDS-Queue
-version: 0.01
+version: 0.030
 author:
   - 'Net.Style Development Team <info@netstyle.com.ua>'
 abstract: Perl5 modules for NetSDS messaging queue
@@ -11,6 +11,7 @@ requires:
   JSON: 2.0
   JSON::XS: 0
   NetSDS: 1.02
+  NetSDS::Util: 1.04
   perl: 5.008
   version: 0
 build_requires:
@@ -21,7 +22,7 @@ build_requires:
 provides:
   NetSDS::Queue:
     file: lib/NetSDS/Queue.pm
-    version: 0.01
+    version: 0.030
 generated_by: Module::Build version 0.3
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html

@@ -38,6 +38,7 @@ my $build = Module::Build->new(
 		'JSON'     => '2.0',
 		'JSON::XS' => '0',
 		'NetSDS'   => '1.02',
+		'NetSDS::Util'   => '1.04',
 	},
 	recommends   => {},
 	script_files => {},

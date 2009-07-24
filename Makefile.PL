@@ -11,6 +11,7 @@ WriteMakefile
           'PREREQ_PM' => {
                            'Test::Pod::Coverage' => '0',
                            'version' => '0',
+                           'NetSDS::Util' => '1.04',
                            'NetSDS' => '1.02',
                            'JSON::XS' => '0',
                            'Test::Pod' => '0',

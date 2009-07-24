@@ -34,6 +34,8 @@ CLASS API
 
                 my $queue = NetSDS::Queue->new(server => '192.168.0.1:12345');
 
+        Default server address is 127.0.0.1:22201
+
     push($queue, $data) - push message to queue
                 $queue->push('msgq', $my_data);
 
