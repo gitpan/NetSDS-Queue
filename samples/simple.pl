@@ -15,14 +15,15 @@ my $q = NetSDS::Queue->new();
 my $data = {
 	from => '380671112233',
 	to => '1234',
-	text => 'Test message',
+	text => 'Test message'x200,
 };
 
-$q->push('test_queue', $data);
+for (my $i = 1; $i < 100; $i++) {
+$q->push('test_queue.1', $data);
+my $res = $q->pull('test_queue.1');
+if ($i % 10 == 0) { print Dumper($res); } 
+}
 
-
-my $res = $q->pull('test_queue');
-
-print Dumper($res);
+print Dumper($q);
 
 1;

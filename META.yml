@@ -1,19 +1,20 @@
 ---
 name: NetSDS-Queue
-version: 0.030
+version: 0.031
 author:
   - 'Net.Style Development Team <info@netstyle.com.ua>'
 abstract: Perl5 modules for NetSDS messaging queue
 license: gpl
 resources:
-  license: http://opensource.org/licenses/gpl-license.php
+  license: http://www.opensource.org/licenses/gpl-license.php
 requires:
+  Cache::Memcached::Fast: 0.10
   JSON: 2.0
-  JSON::XS: 0
-  NetSDS: 1.02
-  NetSDS::Util: 1.04
+  JSON::XS: 2.0
+  NetSDS: 1.000
+  NetSDS::Util: 1.000
   perl: 5.008
-  version: 0
+  version: 0.5
 build_requires:
   Module::Build: 0
   Test::More: 0
@@ -22,8 +23,8 @@ build_requires:
 provides:
   NetSDS::Queue:
     file: lib/NetSDS/Queue.pm
-    version: 0.030
-generated_by: Module::Build version 0.3
+    version: 0.031
+generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
   version: 1.2

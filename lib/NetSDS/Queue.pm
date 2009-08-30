@@ -6,9 +6,7 @@
 #
 #       AUTHOR:  Michael Bochkaryov (Rattler), <misha@rattler.kiev.ua>
 #      COMPANY:  Net.Style
-#      VERSION:  1.0
 #      CREATED:  12.07.2009 11:41:24 UTC
-#     REVISION:  $Id$
 #===============================================================================
 
 =head1 NAME
@@ -56,8 +54,7 @@ use JSON;
 
 use base qw(NetSDS::Class::Abstract);
 
-use version; our $VERSION = "0.030";
-our @EXPORT_OK = qw();
+use version; our $VERSION = "0.031";
 
 #===============================================================================
 #
@@ -90,6 +87,13 @@ sub new {
 	if ( $params{'server'} ) {
 		$server = $params{'server'};
 	}
+
+	# Set message size limitation
+	$this->{max_size} = 4096;
+	if ( $params{'max_size'} ) {
+		$this->{max_size} = $params{'max_size'};
+	}
+	$this->mk_accessors('max_size');
 
 	# Initialize memcacheq handler
 	$this->{handler} = Cache::Memcached::Fast->new(
@@ -124,7 +128,13 @@ sub push {
 
 	my ( $this, $queue, $data ) = @_;
 
-	return $this->handler->set( $queue, _encode($data) );
+	my $push_data = _encode($data);
+
+	# Check if data for push is not more than max_size
+	if ( bytes::length($push_data) > $this->max_size() ) {
+		return $this->error( "Cant insert message bigger than max_size (" . $this->max_size . ")" );
+	}
+	return $this->handler->set( $queue, $push_data );
 
 }
 
@@ -180,6 +190,7 @@ Unknown yet
 =head1 SEE ALSO
 
 http://memcachedb.org/memcacheq/ - MemcacheQ server
+
 http://openhack.ru/Cache-Memcached-Fast - Perl XS API to Memcached servers
 
 =head1 TODO
@@ -189,6 +200,24 @@ None
 =head1 AUTHOR
 
 Michael Bochkaryov <misha@rattler.kiev.ua>
+
+=head1 LICENSE
+
+Copyright (C) 2008 Michael Bochkaryov
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 =cut
 
