@@ -54,7 +54,7 @@ use JSON;
 
 use base qw(NetSDS::Class::Abstract);
 
-use version; our $VERSION = "0.031";
+use version; our $VERSION = "0.032";
 
 #===============================================================================
 #
@@ -68,6 +68,8 @@ use version; our $VERSION = "0.031";
 The following parameters accepted:
 
 * server - address to MemcacheQ queue server (host:port)
+
+* max_size - maximum size of message allowed (default is 4096 bytes)
 
 	my $queue = NetSDS::Queue->new(server => '192.168.0.1:12345');
 
@@ -203,7 +205,7 @@ Michael Bochkaryov <misha@rattler.kiev.ua>
 
 =head1 LICENSE
 
-Copyright (C) 2008 Michael Bochkaryov
+Copyright (C) 2008-2009 Michael Bochkaryov
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

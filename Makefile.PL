@@ -11,6 +11,7 @@ WriteMakefile
                            'Module::Build' => '0',
                            'NetSDS' => '1.000',
                            'NetSDS::Util' => '1.000',
+                           'NetSDS:App' => '1.000',
                            'Test::More' => '0',
                            'Test::Pod' => '0',
                            'Test::Pod::Coverage' => '0',

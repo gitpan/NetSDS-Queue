@@ -39,6 +39,7 @@ my $build = Module::Build->new(
 		'JSON'                   => '2.0',
 		'JSON::XS'               => '2.0',
 		'NetSDS'                 => '1.000',
+		'NetSDS:App'             => '1.000',
 		'NetSDS::Util'           => '1.000',
 	},
 	recommends   => {},

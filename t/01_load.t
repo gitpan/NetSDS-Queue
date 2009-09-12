@@ -15,9 +15,10 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;                      # last test to print
+use Test::More tests => 2;    # last test to print
 
 BEGIN {
 	use_ok('NetSDS::Queue');
+	use_ok('NetSDS::App::QueueProcessor');
 }
 
